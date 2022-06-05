@@ -1,8 +1,10 @@
+import React from "react";
+import { Htag } from "../components";
 
 function Home(): JSX.Element {
   return (
     <div >
-      test
+      <Htag tag="h1">Header test</Htag>
     </div>
   );
 }
