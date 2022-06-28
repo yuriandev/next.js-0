@@ -5,6 +5,7 @@ import { Sidebar } from "./Sidebar/Sidebar";
 import React, { FunctionComponent } from "react";
 import styles from "./Layout.module.css";
 import cn from "classnames";
+import { AppContextProvider, IAppContext } from "../context/app.context";
 
 
 
@@ -24,12 +25,15 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     );
 };
 
-export const withLayout = <T extends Record<string, unknown>>(Component: FunctionComponent<T>) => {
+export const withLayout = <T extends Record<string, unknown> & IAppContext>(Component: FunctionComponent<T>) => {
     return function withLayoutComponent(props: T): JSX.Element {
         return (
-            <Layout>
-                <Component {...props} />
-            </Layout>
+            <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
+                <Layout>
+                    <Component {...props} />
+                </Layout>
+            </AppContextProvider>
+
         );
     };
 };
